@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "@radix-icons/vue": "^1.0.0",
+    "appwrite": "^14.0.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "nuxt": "^3.10.3",
