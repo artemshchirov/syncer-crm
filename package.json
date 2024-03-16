@@ -1,5 +1,9 @@
 {
-  "name": "nuxt-app",
+  "name": "syncer-crm",
+  "version": "0.2",
+  "description": "Nuxt project build with Vue Query for server sync, VeeValidate for forms, Pinia for state, Shadcn & TailwindCSS for design",
+  "author": "Artem Shchirov",
+  "license": "MIT",
   "private": true,
   "type": "module",
   "scripts": {
