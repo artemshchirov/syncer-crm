@@ -5,7 +5,7 @@ import { MENU_DATA } from "./menu.data";
 <template>
   <div>
     <NuxtLink
-      class="flex items-center w-full px-3 py-1 mb-2.5 transition-all rounded-lg hover:bg-gray-700 hover:shadow"
+      class="flex items-center w-full px-3 py-1 mb-2.5 transition-all rounded-lg hover:bg-gray-700 hover:shadow whitespace-nowrap"
       v-for="item in MENU_DATA"
       :key="item.title"
       :to="item.path"

@@ -12,6 +12,9 @@ useHead({
 const emailRef = ref("");
 const passwordRef = ref("");
 const nameRef = ref("");
+
+const isLoadingStore = useIsLoadingStore();
+const router = useRouter();
 </script>
 
 <template>
