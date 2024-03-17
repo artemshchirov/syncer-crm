@@ -1,4 +1,6 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+useHead({ title: "Home | Syncer CRM" });
+</script>
 
 <template>
   <div class="p-10">

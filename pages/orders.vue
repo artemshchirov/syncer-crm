@@ -1,13 +1,5 @@
 <script setup lang="ts">
-useHead({
-  title: "Orders | Syncer CRM",
-  meta: [
-    {
-      name: "description",
-      content: "Orders in Syncer CRM",
-    },
-  ],
-});
+useHead({ title: "Orders | Syncer CRM" });
 </script>
 
 <template>

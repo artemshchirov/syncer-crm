@@ -1,13 +1,5 @@
 <script setup lang="ts">
-useHead({
-  title: "Feedback | Syncer CRM",
-  meta: [
-    {
-      name: "description",
-      content: "Feedback in Syncer CRM",
-    },
-  ],
-});
+useHead({ title: "Feedback | Syncer CRM" });
 </script>
 
 <template>

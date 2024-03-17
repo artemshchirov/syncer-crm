@@ -1,13 +1,5 @@
 <script setup lang="ts">
-useHead({
-  title: "Login | Syncer CRM",
-  meta: [
-    {
-      name: "description",
-      content: "Login to Syncer CRM",
-    },
-  ],
-});
+useHead({ title: "Login | Syncer CRM" });
 
 const emailRef = ref("");
 const passwordRef = ref("");
