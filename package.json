@@ -9,6 +9,7 @@
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
+    "clean": "npx nuxi cleanup && pnpm dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare"
@@ -21,6 +22,7 @@
     "appwrite": "^14.0.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
+    "dayjs": "^1.11.10",
     "nuxt": "^3.10.3",
     "pinia": "^2.1.7",
     "radix-vue": "^1.5.2",

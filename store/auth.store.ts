@@ -1,10 +1,10 @@
-interface IAuthStore {
+interface AuthStore {
   email: string;
   name: string;
   status: boolean;
 }
 
-const defaultValue: { user: IAuthStore } = {
+const defaultValue: { user: AuthStore } = {
   user: {
     email: "",
     name: "",
@@ -21,7 +21,7 @@ export const useAuthStore = defineStore("auth", {
     clear() {
       this.$patch(defaultValue);
     },
-    setUser(authData: IAuthStore) {
+    setUser(authData: AuthStore) {
       this.$patch({ user: authData });
     },
   },
