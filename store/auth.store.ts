@@ -1,28 +1,39 @@
 interface IAuthStore {
   email: string;
   name: string;
-  isLoggedIn: boolean;
+  status: boolean;
 }
 
 const defaultValue: { user: IAuthStore } = {
   user: {
     email: "",
     name: "",
-    isLoggedIn: false,
+    status: false,
   },
 };
 
 export const useAuthStore = defineStore("auth", {
   state: () => defaultValue,
   getters: {
-    isAuth: (state) => state.user.isLoggedIn,
+    isAuth: (state) => state.user.status,
   },
   actions: {
     clear() {
       this.$patch(defaultValue);
     },
-    set(authData: IAuthStore) {
+    setUser(authData: IAuthStore) {
       this.$patch({ user: authData });
+    },
+  },
+});
+
+export const useLoaderStore = defineStore("loader", {
+  state: () => ({
+    isLoading: true,
+  }),
+  actions: {
+    setIsLoading(isLoading: boolean) {
+      this.$patch({ isLoading });
     },
   },
 });
