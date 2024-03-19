@@ -15,14 +15,17 @@ export function useKanbanQuery() {
       for (const deal of deals) {
         const column = newBoard.find((col) => col.id === deal.status);
         if (column) {
-          column.items.push({
-            id: deal.$id,
-            $createdAt: deal.$createdAt,
-            name: deal.name,
-            price: deal.price,
-            companyName: deal.customer.name,
-            status: column.name,
-          });
+          const isDealPresent = column.items.some((item) => item.id === deal.$id);
+          if (!isDealPresent) {
+            column.items.push({
+              id: deal.$id,
+              $createdAt: deal.$createdAt,
+              name: deal.name,
+              price: deal.price,
+              companyName: deal.customer.name,
+              status: column.name,
+            });
+          }
         }
       }
 
