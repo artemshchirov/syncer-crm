@@ -77,7 +77,7 @@
     @apply border-border;
   }
   body {
-    @apply text-base bg-background text-foreground;
+    @apply text-sm bg-background text-foreground;
     font-family: "Lato", sans-serif;
   }
 }

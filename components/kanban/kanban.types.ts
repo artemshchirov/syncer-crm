@@ -2,7 +2,11 @@ import type { EnumStatus } from "@/types/deals.types";
 
 export interface Card {
   id: string;
-  content: string;
+  name: string;
+  price: number;
+  $createdAt: string;
+  companyName: string;
+  status: string;
 }
 
 export interface Column {
