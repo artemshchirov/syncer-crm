@@ -52,7 +52,13 @@ function handleDrop(targetColumn: Column) {
     <h1 class="mb-10 text-2xl font-bold">Syncer CRM</h1>
     <div v-if="isLoading">Loading...</div>
     <div v-else class="grid grid-cols-5 md:gap-8 xl:gap-16">
-      <div v-for="(column, index) in data" :key="column.id" @dragover="handleDragOver" @drop="() => handleDrop(column)">
+      <div
+        v-for="(column, index) in data"
+        :key="column.id"
+        @dragover="handleDragOver"
+        @drop="() => handleDrop(column)"
+        class="min-h-[75vh]"
+      >
         <div
           class="px-5 py-1 mb-2 overflow-hidden text-center rounded bg-slate-700 whitespace-nowrap text-ellipsis"
           :style="generateColumnStyle(index, data?.length)"
