@@ -14,6 +14,9 @@ dependencies:
   '@tanstack/vue-query':
     specifier: ^5.28.4
     version: 5.28.4(vue@3.4.21)
+  '@vee-validate/nuxt':
+    specifier: ^4.12.6
+    version: 4.12.6(vue@3.4.21)
   '@vee-validate/zod':
     specifier: ^4.12.6
     version: 4.12.6(vue@3.4.21)
@@ -1954,6 +1957,18 @@ packages:
       hookable: 5.5.3
       unhead: 1.8.18
       vue: 3.4.21(typescript@5.4.2)
+
+  /@vee-validate/nuxt@4.12.6(vue@3.4.21):
+    resolution: {integrity: sha512-QYz8RDgboLoGRr8J3daB2BQ1eMdBY5XRqtTvieeNhRfSBWweUpjuWRZJx6XqNyT1/K3dEgbrRvR07uTFAK4D0g==}
+    dependencies:
+      '@nuxt/kit': 3.10.3
+      local-pkg: 0.5.0
+      vee-validate: 4.12.6(vue@3.4.21)
+    transitivePeerDependencies:
+      - rollup
+      - supports-color
+      - vue
+    dev: false
 
   /@vee-validate/zod@4.12.6(vue@3.4.21):
     resolution: {integrity: sha512-LCP/hBWRyOgciwxVYvh4UrowVOJT/v5rJvUKCqEn+4ccx3bNtjVlOI4OvA6T1esg7LvmgseQiNQRxUvE2Pn9ng==}

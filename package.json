@@ -18,6 +18,7 @@
     "@pinia/nuxt": "^0.5.1",
     "@radix-icons/vue": "^1.0.0",
     "@tanstack/vue-query": "^5.28.4",
+    "@vee-validate/nuxt": "^4.12.6",
     "@vee-validate/zod": "^4.12.6",
     "@vueuse/core": "^10.9.0",
     "appwrite": "^14.0.0",

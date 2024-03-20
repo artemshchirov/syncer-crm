@@ -14,6 +14,7 @@ export default defineNuxtConfig({
     "shadcn-nuxt",
     "nuxt-icon",
     "@pinia/nuxt",
+
     [
       "@nuxtjs/google-fonts",
       {
@@ -23,6 +24,12 @@ export default defineNuxtConfig({
             ital: [300],
           },
         },
+      },
+    ],
+    [
+      "@vee-validate/nuxt",
+      {
+        autoImports: true,
       },
     ],
   ],

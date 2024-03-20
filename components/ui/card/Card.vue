@@ -11,7 +11,7 @@ const props = defineProps<{
   <div
     :class="
       cn(
-        'rounded-lg border bg-card text-card-foreground animation border-transparent transition-colors hover:border-[#a252c83d]',
+        'p-3 rounded-lg border bg-card text-card-foreground animation border-transparent transition-colors hover:border-[#a252c83d]',
         props.class
       )
     "
@@ -21,6 +21,10 @@ const props = defineProps<{
 </template>
 
 <style scoped>
+.animation {
+  animation: show 0.3s ease-in-out;
+}
+
 @keyframes show {
   from {
     @apply border-[#a252c83d];
@@ -37,9 +41,5 @@ const props = defineProps<{
     transform: scale(1) translateY(0);
     opacity: 1;
   }
-}
-
-.animation {
-  animation: show 0.3s ease-in-out;
 }
 </style>
