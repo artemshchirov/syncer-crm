@@ -4,6 +4,7 @@ import { defineProps } from "vue";
 import { ID, DB } from "@/lib/appwrite";
 import { COLLECTION_DEALS, DB_ID } from "@/app.constants";
 import type { Deal } from "@/types/deals.types";
+import { useToast } from "@/components/ui/toast";
 
 interface DealFormState extends Pick<Deal, "name" | "price"> {
   customer: {
@@ -22,6 +23,7 @@ const props = withDefaults(defineProps<Readonly<Props>>(), {
   status: "",
 });
 
+const { toast } = useToast();
 const isOpenForm = ref(false);
 
 const { handleSubmit, defineField, handleReset } = useForm<DealFormState>({
@@ -43,6 +45,15 @@ const { mutate, isPending } = useMutation({
     handleReset();
     isOpenForm.value = false;
   },
+  onError(error) {
+    console.error(error);
+    const errorMessage = (error as Error).message || "An unknown error occurred";
+    toast({
+      title: "Error while creating deal",
+      description: errorMessage,
+      variant: "destructive",
+    });
+  },
 });
 
 const onSubmit = handleSubmit((values) => {
@@ -52,7 +63,7 @@ const onSubmit = handleSubmit((values) => {
 
 <template>
   <div class="mb-2 text-center">
-    <button class="transition-all opacity-5 hover:opacity-100 hover:text-[#a252c8]" @click="isOpenForm = !isOpenForm">
+    <button class="transition-all opacity-10 hover:opacity-100 hover:text-[#a252c8]" @click="isOpenForm = !isOpenForm">
       <Icon v-if="isOpenForm" name="radix-icons:minus-circled" class="fade-in-100 fade-out-0" size="30" />
       <Icon v-else name="radix-icons:plus-circled" class="fade-in-100 fade-out-0" size="30" />
     </button>

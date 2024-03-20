@@ -8,9 +8,11 @@ import { COLLECTION_DEALS, DB_ID } from "@/app.constants";
 import { DB } from "@/lib/appwrite";
 import type { EnumStatus } from "@/types/deals.types";
 import { generateColumnStyle } from "../components/kanban/generate-gradient";
+import { useToast } from "@/components/ui/toast";
 
 useHead({ title: "Home | Syncer CRM" });
 
+const { toast } = useToast();
 const dragCardRef = ref<Card | null>(null);
 const sourceColumnRef = ref<Column | null>(null);
 
@@ -21,13 +23,22 @@ type MutationVariables = {
   status?: EnumStatus;
 };
 
-const { mutate } = useMutation({
+const { mutate, isPending } = useMutation({
   mutationKey: ["moveCard"],
   mutationFn: async ({ docId, status }: MutationVariables) => {
     await DB.updateDocument(DB_ID, COLLECTION_DEALS, docId, { status });
   },
   onSuccess() {
     refetch();
+  },
+  onError(error) {
+    console.error(error);
+    const errorMessage = (error as Error).message || "An unknown error occurred";
+    toast({
+      title: "Error while moving card",
+      description: errorMessage,
+      variant: "destructive",
+    });
   },
 });
 
@@ -42,6 +53,7 @@ function handleDragOver(event: DragEvent) {
 
 function handleDrop(targetColumn: Column) {
   if (dragCardRef.value && sourceColumnRef.value) {
+    if (targetColumn.id === sourceColumnRef.value.id) return;
     mutate({ docId: dragCardRef.value.id, status: targetColumn.id });
   }
 }
@@ -60,10 +72,11 @@ function handleDrop(targetColumn: Column) {
         class="min-h-[75vh]"
       >
         <div
-          class="px-5 py-1 mb-2 overflow-hidden text-center rounded bg-slate-700 whitespace-nowrap text-ellipsis"
+          class="px-5 mb-2 rounded bg-slate-700 h-[37px] flex justify-center items-center"
           :style="generateColumnStyle(index, data?.length)"
         >
-          {{ column.name }}
+          <p v-if="!isPending" class="overflow-hidden text-ellipsis whitespace-nowrap">{{ column.name }}</p>
+          <NuxtImg v-else src="/loader.svg" alt="Loader" width="50" />
         </div>
 
         <KanbanCreateDeal :refetch="refetch" :status="column.id" />
@@ -76,7 +89,7 @@ function handleDrop(targetColumn: Column) {
           @dragstart="() => handleDragStart(column, card)"
         >
           <UiCardHeader role="button">
-            <UiCardTitle>{{ card.name }}</UiCardTitle>
+            <UiCardTitle>{{ card.name }} </UiCardTitle>
             <UiCardDescription>{{ convertCurrency(card.price) }}</UiCardDescription>
           </UiCardHeader>
           <UiCardContent
