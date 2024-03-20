@@ -7,6 +7,7 @@ import dayjs from "dayjs";
 import { COLLECTION_DEALS, DB_ID } from "@/app.constants";
 import { DB } from "@/lib/appwrite";
 import type { EnumStatus } from "@/types/deals.types";
+import { generateColumnStyle } from "../components/kanban/generate-gradient";
 
 useHead({ title: "Home | Syncer CRM" });
 
@@ -52,7 +53,10 @@ function handleDrop(targetColumn: Column) {
     <div v-if="isLoading">Loading...</div>
     <div v-else class="grid grid-cols-5 md:gap-8 xl:gap-16">
       <div v-for="(column, index) in data" :key="column.id" @dragover="handleDragOver" @drop="() => handleDrop(column)">
-        <div class="px-5 py-1 mb-2 overflow-hidden text-center rounded bg-slate-700 whitespace-nowrap text-ellipsis">
+        <div
+          class="px-5 py-1 mb-2 overflow-hidden text-center rounded bg-slate-700 whitespace-nowrap text-ellipsis"
+          :style="generateColumnStyle(index, data?.length)"
+        >
           {{ column.name }}
         </div>
 
