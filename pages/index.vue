@@ -60,9 +60,9 @@ function handleDrop(targetColumn: Column) {
 </script>
 
 <template>
-  <div class="p-10">
+  <div class="relative min-h-screen p-10">
     <h1 class="mb-10 text-2xl font-bold">Syncer CRM</h1>
-    <div v-if="isLoading">Loading...</div>
+    <NuxtImg v-if="isLoading" src="/loader.svg" alt="Loader" width="100" class="absolute inset-0 m-auto" />
     <div v-else class="grid grid-cols-5 md:gap-8 xl:gap-16">
       <div
         v-for="(column, index) in data"

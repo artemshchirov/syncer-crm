@@ -80,7 +80,7 @@ const onSubmit = handleSubmit((values) => {
       type="text"
     />
     <UiInput v-model="customerName" v-bind="customerNameAttrs" class="input" placeholder="Customer name" type="text" />
-    <button class="btn" :disabled="isPending">{{ isPending ? "Loading..." : "Add" }}</button>
+    <button class="w-full btn bg-secondary" :disabled="isPending">{{ isPending ? "Adding..." : "Add" }}</button>
   </form>
 </template>
 
