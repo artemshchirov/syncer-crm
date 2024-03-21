@@ -2,6 +2,15 @@
 
 Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
 
+## TODO
+
+- [ ] Add functionality for removing cards from kanban
+- [ ] Add functionality for removing comments from kanban slide
+- [ ] Add functionality for removing customers
+- [ ] Rewrite all Shadcn/ui to NuxtUI components
+- [ ] Safely remove radix-vue, @radix-icons/vue with Shadcn/ui, shadcn-nuxt
+- [ ] Find and remove all unused packages
+
 ## Setup
 
 Make sure to install the dependencies:

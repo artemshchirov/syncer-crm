@@ -17,6 +17,7 @@ const dragCardRef = ref<Card | null>(null);
 const sourceColumnRef = ref<Column | null>(null);
 
 const { data, isLoading, refetch } = useKanbanQuery();
+const dealStore = useDealSlideStore();
 
 type MutationVariables = {
   docId: string;
@@ -88,7 +89,7 @@ function handleDrop(targetColumn: Column) {
           draggable="true"
           @dragstart="() => handleDragStart(column, card)"
         >
-          <UiCardHeader role="button">
+          <UiCardHeader role="button" @click="dealStore.setCard(card)">
             <UiCardTitle>{{ card.name }} </UiCardTitle>
             <UiCardDescription>{{ convertCurrency(card.price) }}</UiCardDescription>
           </UiCardHeader>
@@ -99,7 +100,8 @@ function handleDrop(targetColumn: Column) {
           <UiCardFooter>{{ dayjs(card.$createdAt).format("DD MMMM YYYY") }}</UiCardFooter>
         </UiCard>
       </div>
+
+      <KanbanSlideover />
     </div>
   </div>
 </template>
-../lib/convertCurrency

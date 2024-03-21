@@ -3,6 +3,7 @@ import { ID, account } from "@/lib/appwrite";
 import { useToast } from "@/components/ui/toast/use-toast";
 
 useHead({ title: "Login | Syncer CRM" });
+
 const { toast } = useToast();
 
 const emailRef = ref("");
