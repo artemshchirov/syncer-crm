@@ -38,7 +38,7 @@ const [customerEmail, customerEmailAttrs] = defineField("customer.email");
 const [customerName, customerNameAttrs] = defineField("customer.name");
 
 const { mutate, isPending } = useMutation({
-  mutationKey: ["createDeal"],
+  mutationKey: ["create-deal"],
   mutationFn: (data: DealFormState) => DB.createDocument(DB_ID, COLLECTION_DEALS, ID.unique(), data),
   onSuccess() {
     props.refetch();

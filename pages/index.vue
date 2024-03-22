@@ -25,7 +25,7 @@ type MutationVariables = {
 };
 
 const { mutate, isPending } = useMutation({
-  mutationKey: ["moveCard"],
+  mutationKey: ["move-card"],
   mutationFn: async ({ docId, status }: MutationVariables) => {
     await DB.updateDocument(DB_ID, COLLECTION_DEALS, docId, { status });
   },
@@ -76,7 +76,9 @@ function handleDrop(targetColumn: Column) {
           class="px-5 mb-2 rounded bg-slate-700 h-[37px] flex justify-center items-center"
           :style="generateColumnStyle(index, data?.length)"
         >
-          <p v-if="!isPending" class="overflow-hidden text-ellipsis whitespace-nowrap">{{ column.name }}</p>
+          <p v-if="!isPending && !isLoading" class="overflow-hidden text-ellipsis whitespace-nowrap">
+            {{ column.name }}
+          </p>
           <NuxtImg v-else src="/loader.svg" alt="Loader" width="50" />
         </div>
 
