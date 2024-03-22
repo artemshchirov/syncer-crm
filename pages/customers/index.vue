@@ -69,13 +69,14 @@ const columns = [
 
       <UTable :columns="columns" :rows="filteredRows">
         <template #avatar_url-data="{ row }">
-          <NuxtImg
-            :src="row.avatar_url"
-            :alt="row.name"
-            width="50"
-            height="50"
-            class="rounded-full"
-          />
+          <NuxtLink :href="`/customers/edit/${row.$id}`">
+            <NuxtImg
+              :src="row.avatar_url"
+              :alt="row.name"
+              width="50"
+              height="50"
+              class="rounded-full"
+          /></NuxtLink>
         </template>
       </UTable>
     </div>
