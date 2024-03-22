@@ -2,10 +2,14 @@
 import { z } from "zod";
 import type { FormSubmitEvent } from "#ui/types";
 import { useMutation, useQuery } from "@tanstack/vue-query";
-import { DB_ID, COLLECTION_CUSTOMERS } from "@/app.constants";
-import { DB } from "@/lib/appwrite";
+import { DB_ID, COLLECTION_CUSTOMERS, STORAGE_ID } from "@/app.constants";
+import { DB, ID, storage } from "@/lib/appwrite";
 
 useHead({ title: "Edit Customer | Syncer CRM" });
+
+interface InputFileEvent extends Event {
+  target: HTMLInputElement & EventTarget;
+}
 
 interface CustomerFormState {
   avatar_url: string;
@@ -14,7 +18,10 @@ interface CustomerFormState {
   from_source: string;
 }
 
+const toast = useToast();
+
 const route = useRoute();
+const router = useRouter();
 const customerId = (route.params.id as string) || "";
 
 const schema = z.object({
@@ -42,6 +49,49 @@ const { mutate, isPending } = useMutation({
   mutationKey: ["update-customer", customerId],
   mutationFn: (data: CustomerFormState) =>
     DB.updateDocument(DB_ID, COLLECTION_CUSTOMERS, customerId, data),
+  onSuccess: () => {
+    toast.add({
+      title: "Success",
+      description: "Customer updated",
+      icon: "i-heroicons-check-circle",
+      actions: [
+        {
+          label: "Go Back",
+          click: () => router.push("/customers"),
+        },
+      ],
+    });
+  },
+  onError: () => {
+    toast.add({
+      title: "Error",
+      description: "Failed to upload image",
+      icon: "i-heroicons-x-circle",
+      color: "red",
+    });
+  },
+});
+
+const { mutate: uploadImage, isPending: isUploadImagePending } = useMutation({
+  mutationKey: ["upload-image"],
+  mutationFn: (file: File) => storage.createFile(STORAGE_ID, ID.unique(), file),
+  onSuccess: (data) => {
+    const response = storage.getFileDownload(STORAGE_ID, data.$id);
+    state.avatar_url = response.href;
+    toast.add({
+      title: "Success",
+      description: "Image uploaded",
+      icon: "i-heroicons-check-circle",
+    });
+  },
+  onError: () => {
+    toast.add({
+      title: "Error",
+      description: "Failed to upload image",
+      icon: "i-heroicons-x-circle",
+      color: "red",
+    });
+  },
 });
 
 async function onSubmit(event: FormSubmitEvent<Schema>) {
@@ -56,17 +106,11 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
 }
 
 watch(isSuccess, () => {
-  console.log(isSuccess.value, data.value);
-
-  if (isSuccess.value && data.value) {
-    console.log(data.value);
-
-    const initialData: CustomerFormState = data.value as unknown as CustomerFormState;
-    state.avatar_url = initialData.avatar_url ?? "";
-    state.name = initialData.name;
-    state.email = initialData.email;
-    state.from_source = initialData.from_source ?? "";
-  }
+  const initialData: CustomerFormState = data.value as unknown as CustomerFormState;
+  state.avatar_url = initialData.avatar_url ?? "";
+  state.name = initialData.name;
+  state.email = initialData.email;
+  state.from_source = initialData.from_source ?? "";
 });
 </script>
 
@@ -82,6 +126,21 @@ watch(isSuccess, () => {
     />
     <UForm v-else :schema="schema" :state="state" class="space-y-4 max-w-[30vw]" @submit="onSubmit">
       <UFormGroup label="Avatar URL" name="avatar_url">
+        <NuxtImg
+          v-if="state.avatar_url || isUploadImagePending"
+          :src="state.avatar_url"
+          alt="Customer avatar or logo"
+          width="50"
+          height="50"
+          class="my-2 rounded-full"
+        />
+        <UInput
+          type="file"
+          accept="image/*"
+          @change="(evt: InputFileEvent) => evt?.target?.files?.length && uploadImage(evt.target.files[0])"
+          :disabled="isUploadImagePending"
+        />
+        <p class="my-1 text-xs text-center">Or enter a URL</p>
         <UInput v-model="state.avatar_url" />
       </UFormGroup>
 

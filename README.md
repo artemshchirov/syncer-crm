@@ -10,6 +10,7 @@ Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introdu
 - [ ] Rewrite all Shadcn/ui to NuxtUI components
 - [ ] Safely remove radix-vue, @radix-icons/vue with Shadcn/ui, shadcn-nuxt
 - [ ] Find and remove all unused packages
+- [ ] Icon position and max content width container in all Notifications
 
 ## Setup
 

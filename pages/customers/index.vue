@@ -6,9 +6,7 @@ import type { Customer } from "@/types/deals.types";
 
 useHead({ title: "Customers | Syncer CRM" });
 
-const toast = useToast();
-
-const { data, isLoading, error, isError } = useQuery({
+const { data, isLoading } = useQuery({
   queryKey: ["customers"],
   queryFn: () => DB.listDocuments(DB_ID, COLLECTION_CUSTOMERS),
 });
