@@ -4,7 +4,6 @@ import { defineProps } from "vue";
 import { ID, DB } from "@/lib/appwrite";
 import { COLLECTION_DEALS, DB_ID } from "@/app.constants";
 import type { Deal } from "@/types/deals.types";
-import { useToast } from "@/components/ui/toast";
 
 interface DealFormState extends Pick<Deal, "name" | "price"> {
   customer: {
@@ -23,7 +22,7 @@ const props = withDefaults(defineProps<Readonly<Props>>(), {
   status: "",
 });
 
-const { toast } = useToast();
+const toast = useToast();
 const isOpenForm = ref(false);
 
 const { handleSubmit, defineField, handleReset } = useForm<DealFormState>({
@@ -39,7 +38,8 @@ const [customerName, customerNameAttrs] = defineField("customer.name");
 
 const { mutate, isPending } = useMutation({
   mutationKey: ["create-deal"],
-  mutationFn: (data: DealFormState) => DB.createDocument(DB_ID, COLLECTION_DEALS, ID.unique(), data),
+  mutationFn: (data: DealFormState) =>
+    DB.createDocument(DB_ID, COLLECTION_DEALS, ID.unique(), data),
   onSuccess() {
     props.refetch();
     handleReset();
@@ -48,10 +48,10 @@ const { mutate, isPending } = useMutation({
   onError(error) {
     console.error(error);
     const errorMessage = (error as Error).message || "An unknown error occurred";
-    toast({
+    toast.add({
       title: "Error while creating deal",
       description: errorMessage,
-      variant: "destructive",
+      color: "red",
     });
   },
 });
@@ -63,15 +63,29 @@ const onSubmit = handleSubmit((values) => {
 
 <template>
   <div class="mb-2 text-center">
-    <button class="transition-all opacity-10 hover:opacity-100 hover:text-[#a252c8]" @click="isOpenForm = !isOpenForm">
-      <Icon v-if="isOpenForm" name="radix-icons:minus-circled" class="fade-in-100 fade-out-0" size="30" />
+    <button
+      class="transition-all opacity-10 hover:opacity-100 hover:text-[#a252c8]"
+      @click="isOpenForm = !isOpenForm"
+    >
+      <Icon
+        v-if="isOpenForm"
+        name="radix-icons:minus-circled"
+        class="fade-in-100 fade-out-0"
+        size="30"
+      />
       <Icon v-else name="radix-icons:plus-circled" class="fade-in-100 fade-out-0" size="30" />
     </button>
   </div>
 
   <form v-if="isOpenForm" @submit="onSubmit" class="form">
     <UiInput v-model="name" v-bind="nameAttrs" class="input" placeholder="Deal name" type="text" />
-    <UiInput v-model="price" v-bind="priceAttrs" class="input" placeholder="Deal price" type="text" />
+    <UiInput
+      v-model="price"
+      v-bind="priceAttrs"
+      class="input"
+      placeholder="Deal price"
+      type="text"
+    />
     <UiInput
       v-model="customerEmail"
       v-bind="customerEmailAttrs"
@@ -79,8 +93,16 @@ const onSubmit = handleSubmit((values) => {
       placeholder="Customer email"
       type="text"
     />
-    <UiInput v-model="customerName" v-bind="customerNameAttrs" class="input" placeholder="Customer name" type="text" />
-    <button class="w-full btn bg-secondary" :disabled="isPending">{{ isPending ? "Adding..." : "Add" }}</button>
+    <UiInput
+      v-model="customerName"
+      v-bind="customerNameAttrs"
+      class="input"
+      placeholder="Customer name"
+      type="text"
+    />
+    <button class="w-full btn bg-secondary" :disabled="isPending">
+      {{ isPending ? "Adding..." : "Add" }}
+    </button>
   </form>
 </template>
 

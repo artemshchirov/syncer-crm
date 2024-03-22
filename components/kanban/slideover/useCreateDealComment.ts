@@ -1,10 +1,9 @@
 import { useMutation, useQueryClient, type InvalidateQueryFilters } from "@tanstack/vue-query";
 import { COLLECTION_COMMENTS, DB_ID } from "@/app.constants";
-import { useToast } from "@/components/ui/toast";
 import { DB, ID } from "@/lib/appwrite";
 
 export function useCreateDealComment() {
-  const { toast } = useToast();
+  const toast = useToast();
 
   const queryClient = useQueryClient();
 
@@ -29,10 +28,10 @@ export function useCreateDealComment() {
     onError(error) {
       console.error(error);
       const errorMessage = (error as Error).message || "An unknown error occurred";
-      toast({
+      toast.add({
         title: "Error while adding comment",
         description: errorMessage,
-        variant: "destructive",
+        color: "red",
       });
     },
   });

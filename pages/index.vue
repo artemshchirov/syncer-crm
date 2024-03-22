@@ -8,11 +8,10 @@ import { COLLECTION_DEALS, DB_ID } from "@/app.constants";
 import { DB } from "@/lib/appwrite";
 import type { EnumStatus } from "@/types/deals.types";
 import { generateColumnStyle } from "../components/kanban/generate-gradient";
-import { useToast } from "@/components/ui/toast";
 
 useHead({ title: "Home | Syncer CRM" });
 
-const { toast } = useToast();
+const toast = useToast();
 const dragCardRef = ref<Card | null>(null);
 const sourceColumnRef = ref<Column | null>(null);
 
@@ -35,10 +34,10 @@ const { mutate, isPending } = useMutation({
   onError(error) {
     console.error(error);
     const errorMessage = (error as Error).message || "An unknown error occurred";
-    toast({
+    toast.add({
       title: "Error while moving card",
       description: errorMessage,
-      variant: "destructive",
+      color: "red",
     });
   },
 });
@@ -63,7 +62,13 @@ function handleDrop(targetColumn: Column) {
 <template>
   <div class="relative min-h-screen p-10">
     <h1 class="mb-10 text-2xl font-bold">Syncer CRM</h1>
-    <NuxtImg v-if="isLoading" src="/loader.svg" alt="Loader" width="100" class="absolute inset-0 m-auto" />
+    <NuxtImg
+      v-if="isLoading"
+      src="/loader.svg"
+      alt="Loader"
+      width="100"
+      class="absolute inset-0 m-auto"
+    />
     <div v-else class="grid grid-cols-5 md:gap-8 xl:gap-16">
       <div
         v-for="(column, index) in data"
@@ -76,7 +81,10 @@ function handleDrop(targetColumn: Column) {
           class="px-5 mb-2 rounded bg-slate-700 h-[37px] flex justify-center items-center"
           :style="generateColumnStyle(index, data?.length)"
         >
-          <p v-if="!isPending && !isLoading" class="overflow-hidden text-ellipsis whitespace-nowrap">
+          <p
+            v-if="!isPending && !isLoading"
+            class="overflow-hidden text-ellipsis whitespace-nowrap"
+          >
             {{ column.name }}
           </p>
           <NuxtImg v-else src="/loader.svg" alt="Loader" width="50" />

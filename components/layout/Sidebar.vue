@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { account } from "@/lib/appwrite";
-import { useToast } from "@/components/ui/toast";
 
-const { toast } = useToast();
+const toast = useToast();
 
 const authStore = useAuthStore();
 const loaderStore = useLoaderStore();
@@ -17,10 +16,10 @@ const logout = async () => {
   } catch (error) {
     console.error(error);
     const errorMessage = (error as Error).message || "An unknown error occurred";
-    toast({
+    toast.add({
       title: "Error while logging in",
       description: errorMessage,
-      variant: "destructive",
+      color: "red",
     });
   } finally {
     loaderStore.setIsLoading(false);

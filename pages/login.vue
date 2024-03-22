@@ -4,7 +4,7 @@ import { useToast } from "@/components/ui/toast/use-toast";
 
 useHead({ title: "Login | Syncer CRM" });
 
-const { toast } = useToast();
+const toast = useToast();
 
 const emailRef = ref("");
 const passwordRef = ref("");
@@ -30,10 +30,10 @@ const login = async () => {
   } catch (error) {
     console.error(error);
     const errorMessage = (error as Error).message || "An unknown error occurred";
-    toast({
+    toast.add({
       title: "Error while logging in",
       description: errorMessage,
-      variant: "destructive",
+      color: "red",
     });
   } finally {
     loaderStore.setIsLoading(false);
@@ -48,10 +48,10 @@ const register = async () => {
   } catch (error) {
     console.error(error);
     const errorMessage = (error as Error).message || "An unknown error occurred";
-    toast({
+    toast.add({
       title: "Error while registering",
       description: errorMessage,
-      variant: "destructive",
+      color: "red",
     });
   } finally {
     loaderStore.setIsLoading(false);
