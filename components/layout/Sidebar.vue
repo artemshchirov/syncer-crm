@@ -30,11 +30,20 @@ const logout = async () => {
 
 <template>
   <aside class="relative w-full h-full px-5 py-8 bg-sidebar">
-    <NuxtLink to="/" class="block my-10"> <NuxtImg src="/logo.svg" alt="Logo" class="mx-auto w-[120px]" /></NuxtLink>
+    <NuxtLink to="/" class="block my-10">
+      <NuxtImg src="/logo.svg" alt="Logo" class="mx-auto w-[120px]"
+    /></NuxtLink>
 
-    <button class="absolute transition-colors top-2 right-3 hover:text-primary" @click="logout">
-      <Icon name="line-md:logout" size="20" />
-    </button>
+    <LayoutColorPicker class="absolute top-2 left-3" />
+
+    <UButton
+      @click="logout"
+      class="absolute top-2 right-3"
+      color="gray"
+      variant="ghost"
+      aria-label="Logout"
+      :icon="'i-heroicons-arrow-right-end-on-rectangle-20-solid'"
+    />
 
     <LayoutMenu />
   </aside>

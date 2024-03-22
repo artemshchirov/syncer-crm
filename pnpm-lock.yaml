@@ -70,6 +70,9 @@ devDependencies:
   '@nuxt/image':
     specifier: ^1.4.0
     version: 1.4.0
+  '@nuxtjs/color-mode':
+    specifier: ^3.3.3
+    version: 3.3.3
   '@nuxtjs/google-fonts':
     specifier: ^3.2.0
     version: 3.2.0
@@ -1491,7 +1494,6 @@ packages:
     transitivePeerDependencies:
       - rollup
       - supports-color
-    dev: false
 
   /@nuxtjs/google-fonts@3.2.0:
     resolution: {integrity: sha512-cGAjDJoeQ2jm6VJCo4AtSmKO6KjsbO9RSLj8q261fD0lMVNMZCxkCxBkg8L0/2Vfgp+5QBHWVXL71p1tiybJFw==}

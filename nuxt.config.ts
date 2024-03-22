@@ -11,6 +11,7 @@ export default defineNuxtConfig({
   modules: [
     "@nuxt/image",
     "@nuxt/ui",
+    "@nuxtjs/color-mode",
     "shadcn-nuxt",
     "nuxt-icon",
     "@pinia/nuxt",
@@ -39,5 +40,8 @@ export default defineNuxtConfig({
   },
   pinia: {
     storesDirs: ["./store/**"],
+  },
+  colorMode: {
+    classSuffix: "",
   },
 });
